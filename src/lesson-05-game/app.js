@@ -6,7 +6,8 @@ const screens = document.querySelectorAll(".screen"),
 
 let time = 0,
   score = 0,
-  timeInterval;
+  timeInterval,
+  winInterval;
 
 startBtn.addEventListener("click", () => screens[0].classList.add("up"));
 timeList.addEventListener("click", ({ target }) => {
@@ -34,6 +35,7 @@ function startGame() {
 
 function finishGame() {
   clearInterval(timeInterval);
+  clearInterval(winInterval);
   timeEl.parentNode.classList.add("hide");
   board.innerHTML = `<h1>Ваш счет: <span class="primary">${score}</span></h1>`;
 }
@@ -83,4 +85,16 @@ function getRandomNumber(min, max) {
 
 function getRandomColor() {
   return "#" + getRandomNumber(0, 4095).toString(16).padStart(2, "0");
+}
+
+function winTheGame() {
+  winInterval = setInterval(kill, 75);
+
+  function kill() {
+    const circle = document.querySelector(".circle");
+
+    if (circle) {
+      circle.click();
+    }
+  }
 }
